@@ -10,8 +10,8 @@ logger = logging.getLogger(__name__)
 app = Flask(
     __name__,
     static_url_path='/',  # serve static from /css/main.css
-    static_folder='../static/dist',  # our static content folder is called static/dist
-    template_folder='../templates',
+    static_folder='static/dist',  # our static content folder is called static/dist
+    template_folder='templates',
 )
 
 app.register_blueprint(collection.collection, url_prefix="/collection")
@@ -41,7 +41,7 @@ def start_server(debug=False):
     logger.info("Starting Web Server...")
 
     import simple_mod_installer.webserver.pages  # link the pages up
-    app.run(debug=debug, port=5000)
+    app.run(debug=debug, port=config["webserver_port"])
     logger.info("Web Server Running")
 
 

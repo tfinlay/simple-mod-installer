@@ -143,6 +143,13 @@ def get_parent_dir(path):
     """
     return os.path.dirname(path)
 
+def ensure_dirs_exist(path):
+    """
+    Makes sure that the directories in path do exist, if they don't, then creates them
+    :param path: string
+    :return: Non
+    """
+    os.makedirs(path, exist_ok=True)
 
 def create_symbolic_link(file, target):
     """

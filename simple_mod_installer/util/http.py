@@ -2,11 +2,14 @@
 HTTP Actions
 """
 import os
+import json
+import codecs
+import urllib.request
 from simple_mod_installer.util import get_parent_dir
 from urllib.request import urlopen, quote
 import logging
 
-logger = logging.getLogger('simple_mod_installer.util.http')
+logger = logging.getLogger(__name__)
 
 
 def download_to_file(url, location):
@@ -35,3 +38,13 @@ def download_to_file(url, location):
         local_file.write(f.read())
 
     logger.info("Download successful")
+
+
+def load_json_from_response(response, encoding="utf-8"):
+    """
+    reads JSON from a urllib.request.urlopen() return
+    :param url: string
+    :return: dict or list, encoded JSON
+    """
+    reader = codecs.getreader(encoding)
+    return json.load(reader(response))

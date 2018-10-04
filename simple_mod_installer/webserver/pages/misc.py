@@ -35,6 +35,7 @@ def client_app_folder(filename, extension):
 
 @misc.route('/')
 def index():
+    print(request.user_agent.string)
     return render_template('main.html')
 
 

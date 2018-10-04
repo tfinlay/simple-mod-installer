@@ -6,7 +6,7 @@ second, we need to load them all into CurseMods, losing all unnecessary data.
 """
 import threading
 import logging
-import urllib.request
+import urllib.request, urllib.error
 import bz2
 import os
 import ijson
@@ -57,7 +57,7 @@ def get():
     """
     if config["fetch_curse_moddata"]:
         logging.info("Starting new thread to get curse mods...")
-        threading.Thread(target=_get_curse_mods, name="cursemods get thread").start()
+        threading.Thread(target=_get_curse_mods, name="cursemods", daemon=True).start()
     else:
         logging.info("Get curse mods was called, but is not executing as fetch_curse_moddata doesn't resolve to True")
 
@@ -77,7 +77,12 @@ def get_from_id(id):
 
 def _download_json(dl_loc):
     logger.info("Starting download of moddata JSON")
-    u = urllib.request.urlopen(JSON_URL)
+    try:
+        u = urllib.request.urlopen(JSON_URL)
+    except urllib.error.URLError as ex:
+        logger.error("Failed to download moddata JSON due to URLError: {}. Maybe you're disconnected from the internet?".format(ex))
+        raise
+
     meta = u.info()
     file_size = int(meta["Content-Length"][0])
 
@@ -177,7 +182,12 @@ def _get_curse_mods():
         os.makedirs(dl_folder)
 
     logger.info("Getting Curse mods...")
-    _download_json(dl_loc)
+    try:
+        _download_json(dl_loc)
+    except Exception:
+        logger.error("Moddata download failed, maybe the computer is offline. Some Advanced features will be unavailable until reconnection occurs")
+        return
+
     logger.info("Extracting archive...")
     _extract_json(dl_loc, json_loc)
 

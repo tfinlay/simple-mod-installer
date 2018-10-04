@@ -34,7 +34,7 @@ mod_dependency_table = Table(
     'mod_dependency_table',
     Base.metadata,
     Column('dependant', Integer, ForeignKey('mods.id'), nullable=False, primary_key=True),
-    Column('dependency', String, ForeignKey('depmods.modid'), nullable=False, primary_key=True),
+    Column('dependency', String, ForeignKey('depmods.id'), nullable=False, primary_key=True),
     PrimaryKeyConstraint('dependant', 'dependency')  # this mod can only have one dependency that's the same
 )
 
@@ -44,13 +44,14 @@ class DepMod(Base):
     A Dependency Mod, a placeholder for a dependency
     """
     __tablename__ = 'depmods'
-    modid = Column(String, nullable=False, primary_key=True)
+    id = Column(Integer, primary_key=True)
+    modid = Column(String, nullable=False)
 
     def __init__(self, modid):
         self.modid = modid
 
     def __repr__(self):
-        return '<DepMod modid: {!r}>'.format(self.modid)
+        return '<DepMod (id: {}, modid: {!r})>'.format(self.id, self.modid)
 
 
 class Mod(Base):

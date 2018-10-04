@@ -3,7 +3,7 @@ JavaScript API head
 """
 import logging
 from flask import Blueprint, jsonify, request, abort
-from simple_mod_installer import mc_interface
+from simple_mod_installer.mc_interface import forge
 
 api = Blueprint(
     'api',
@@ -20,7 +20,8 @@ def get_mc_versions():
     Returns an array of all of the valid, installed mcversions, and metadata associated with them
     :return:
     """
-    return jsonify([version.dictify() for version in mc_interface.get_versions()])
+    return jsonify(forge.get_available_minecraft_releases())
+    #return jsonify([version.dictify() for version in mc_interface.get_versions()])
 
 
 @api.route('/search')

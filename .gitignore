@@ -131,5 +131,3 @@ node_modules/
 client/js/*.js
 **.css
 **.map
-yarn.lock
-simple_mod_installer/static/dist/

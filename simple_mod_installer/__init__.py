@@ -10,6 +10,7 @@ import logging, logging.config
 import logging.handlers
 import threading
 import pathlib
+import time
 import sys
 import os
 
@@ -18,11 +19,11 @@ path_to_lib = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(1, path_to_lib)
 
 
-from simple_mod_installer.conf import Config
+from simple_mod_installer.conf import get_config
 
-config = Config()
+config = get_config() #Config()
 
-
+'''
 class c:
     def __init__(self):
         self.conf = Config()
@@ -40,6 +41,7 @@ class c:
         finally:
             self.conf[key] = value
             self.conf_lock.release()
+'''
 
 
 def main():
@@ -77,16 +79,45 @@ def main():
     logger.info("Starting web server...")
 
     # get started:
-    from simple_mod_installer import webserver
+    from simple_mod_installer import webserver, view
 
-    webserver = threading.Thread(target=webserver.start_server).start()  # open the Flask webserver in a seperate thread so that other tasks may continue in the background.
+    stop_event = threading.Event()
+
+    webserver = threading.Thread(target=webserver.start_server, daemon=True, name="webserver").start()  # open the Flask webserver in a seperate thread so that other tasks may continue in the background.
     logger.info("Web server started successfully")
+
+    webserver_url = "http://127.0.0.1:{}".format(config["webserver_port"])
+
+    logger.info("Waiting to start webview...")
+    webview_thread = threading.Thread(target=view.run_view, args=(webserver_url,stop_event), daemon=True, name="webview")#threading.Thread(target=ping_until_server_started, args=(webserver_url, start_webview, (webserver_url,))).start()
+    #webview_thread.start()
 
     logger.info("Getting curse mods...")
     from simple_mod_installer.searchmods import cursemods
     cursemods.get()
 
     logger.info("Startup Successful!")
+    '''
+    import webview
+    webview.evaluate_js('window.location.reload(true);')
+    webview.evaluate_js(r"window.onerror = function(msg, url, linenumber) {alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);return true;}")
+    with open("static/dist/inline.bundle.js") as f:
+        webview.evaluate_js(f.read())
+    with open("static/dist/polyfills.bundle.js") as f:
+        webview.evaluate_js(f.read())
+    with open("static/dist/styles.bundle.js") as f:
+        webview.evaluate_js(f.read())
+    with open("static/dist/vendor.bundle.js") as f:
+        webview.evaluate_js(f.read())
+    with open("static/dist/main.bundle.js") as f:
+        webview.evaluate_js(f.read())
+    '''
+
+
+    while not stop_event.is_set():
+        time.sleep(0.5)
+
+    logger.info("Main thread closed")
 
 
 if __name__ == '__main__':

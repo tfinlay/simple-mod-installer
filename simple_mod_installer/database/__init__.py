@@ -16,9 +16,9 @@ uppath = lambda _path, n: os.sep.join(_path.split(os.sep)[:-n])
 #    'moddata.db'
 #)
 
-path_to_db = "sqlite:///../moddata.sqlite"
+#path_to_db = "sqlite:///../moddata.sqlite"
 
-#path_to_db = "sqlite:////{}".format(os.path.join(config["application_root"], "moddata.sqlite"))
+path_to_db = "sqlite:///{}".format(config["database_path"])#"sqlite:////{}".format(os.path.join(config["application_root"], "moddata.sqlite"))
 
 print(repr(path_to_db))
 
