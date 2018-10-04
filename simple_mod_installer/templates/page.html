@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    {% block head %}
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <title>Tfff1's Simple Launcher - {% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer>
+        {% block footer %}
+            {% include 'inc/footer.html' %}
+        {% endblock %}
+    </footer>
+</body>
+</html>

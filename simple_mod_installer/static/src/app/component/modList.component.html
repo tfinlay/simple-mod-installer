@@ -1,0 +1,26 @@
+<h1>My Mods</h1>
+
+<ng-container *ngIf="!mods.length > 0 && !loading">
+    <p>No mods here yet! <a md-button (click)="openAddModDialog()">Add one</a></p>
+</ng-container>
+
+
+<app-spinner *ngIf="loading"></app-spinner>
+
+<app-listcard
+        *ngFor="let mod of mods"
+        [header]="mod.getName() + ' (' + mod.getFilenames()[0] + ')'"
+        [subheader]="'By: ' + mod.getAuthors()"
+        [contextMenu]="contextMenu"
+>
+    <md-menu #contextMenu="mdMenu">
+          <button md-menu-item (click)="delMod(mod.local_id);">
+              <md-icon>delete</md-icon>
+              <span>Delete</span>
+          </button>
+        </md-menu>
+</app-listcard>
+
+<button md-fab class="windowFab" md-tooltip="Add a mod" mdTooltipPosition="left" (click)="openAddModDialog()">
+    <md-icon class="md-24">add</md-icon>
+</button>

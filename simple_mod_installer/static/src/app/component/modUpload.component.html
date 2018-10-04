@@ -1,0 +1,4 @@
+<h1>Upload a mod</h1>
+
+<input [hidden]="loading" type="file" name="file" (change)="fileChange($event)" placeholder="Upload a modfile" accept=".jar,.zip">
+<app-spinner *ngIf="loading"></app-spinner>

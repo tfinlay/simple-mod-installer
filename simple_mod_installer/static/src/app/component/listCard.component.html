@@ -1,0 +1,23 @@
+<md-card (click)="componentClickEvent()">
+    <md-card-title-group>
+
+        <md-card-title>
+          {{header}}
+
+          <span *ngIf="warning" mdTooltip="{{warning}}" mdTooltipPosition="right" class="titleWarning">
+            <md-icon>warning</md-icon>
+          </span>
+
+        </md-card-title>
+        <md-card-subtitle>{{subheader}}</md-card-subtitle>
+
+        <span style="display: inherit;">
+            <button *ngIf="actionText" md-raised-button color="accent" (click)="actionButtonClickEvent();$event.stopPropagation()">{{actionText}}</button>
+
+            <span class="contextBtnContainer" *ngIf="contextMenu" style="display: flex;justify-content: space-around;">
+                <button md-icon-button [mdMenuTriggerFor]="contextMenu" (click)="$event.stopPropagation()"><md-icon>more_vert</md-icon></button>
+            </span>
+        </span>
+    </md-card-title-group>
+</md-card>
+<br/>

@@ -1,0 +1,11 @@
+[{
+  "modid": "smi_testMod",
+  "name": "Simple Mod Installer Test Mod",
+  "description": "An empty mod used for testing dependency checking",
+  "version": "1.0.0.0",
+  "mcversion": "1.10.2",
+  "logoFile": "assets/logo.png",
+  "url": "minecraftforge.net/",
+  "updateJSON": "minecraftforge.net/versions.json",
+  "authorList": ["Simple Mod Installer"],
+}]

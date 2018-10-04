@@ -1,0 +1,28 @@
+<h1>My Collections</h1>
+
+<ng-container *ngIf="collections.length == 0 && !loading">
+    <p>No collections here yet! <a md-button (click)="showAddCollectionDialog()">Add one</a></p>
+</ng-container>
+
+<app-spinner *ngIf="loading"></app-spinner>
+
+<app-listcard
+        *ngFor="let coll of collections"
+        [header]="coll.name"
+        [subheader]="'Minecraft ' + coll.mc_version"
+        actionText="Play"
+        (click)="routeToCollection(coll.id);"
+        (actionClick)="playCollection(coll.id);"
+        [contextMenu]="contextMenu"
+>
+    <md-menu #contextMenu="mdMenu">
+      <button md-menu-item (click)="delColl(coll.id);">
+          <md-icon>delete</md-icon>
+          <span>Delete</span>
+      </button>
+    </md-menu>
+</app-listcard>
+
+<button md-fab class="windowFab" md-tooltip="Create new collection" mdTooltipPosition="left" (click)="showAddCollectionDialog()">
+    <md-icon class="md-24">add</md-icon>
+</button>

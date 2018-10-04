@@ -1,0 +1,50 @@
+<md-list class="bigList">
+    <h3>
+        <span>Mod list</span>
+        <button md-icon-button (click)="loadModList()" style="float:right;margin-right: 15px;" md-tooltip="Refresh">
+            <md-icon>refresh</md-icon>
+        </button>
+    </h3>
+
+    <p *ngIf="mods.length == 0 && !loading">No mods here yet! <button md-button (click)="openAddModDialog()">Add one</button> </p>
+
+    <app-spinner *ngIf="loading"></app-spinner>
+
+    <md-list-item *ngFor="let mod of mods">
+        <div class="content noSelect" md-ripple="">
+            <span style="min-width: initial; padding-right: 16px;width: 40px;">
+                <button md-icon-button md-tooltip="Click to see issues" *ngIf="mod.issues.length > 0" (click)="showIssuePopupForMod(mod)">
+                    <md-icon>warning</md-icon>
+                </button>
+            </span>
+
+            <span class="body">
+                <h4 class="title">{{ mod.getName() }}</h4>
+                <p class="subtitle">{{ mod.filename }} (v{{ mod.version }})</p>
+            </span>
+            <span class="fillSpace"></span>
+            <button md-icon-button [mdMenuTriggerFor]="contextMenu">
+                <md-icon>more_vert</md-icon>
+            </button>
+        </div>
+
+        <md-menu #contextMenu="mdMenu">
+          <button md-menu-item (click)="remMod(mod.id);">
+              <md-icon>close</md-icon>
+              <span>Remove</span>
+          </button>
+        </md-menu>
+
+    </md-list-item>
+
+    <!--<md-list-item class="addModButton">
+        <button md-raised-button color="primary" style="width: 100%;height: 100%;" (click)="openAddModDialog();">
+            <md-icon>add</md-icon>
+            <span>Add a mod</span>
+        </button>
+    </md-list-item>-->
+</md-list>
+
+<button md-fab class="windowFab" md-tooltip="Add mod" mdTooltipPosition="left" (click)="openAddModDialog();">
+    <md-icon class="md-24">add</md-icon>
+</button>

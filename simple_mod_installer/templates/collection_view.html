@@ -1,0 +1,18 @@
+{% extends 'page.html' %}
+{% block title %}Collection: {{ collection.name }}{% endblock %}
+
+{% block main %}
+    <h1 onclick='alert("{{ collection.mc_id|string }}");'>{{ collection.name }}</h1>
+    <p>id: {{ collection.id }}</p>
+    <p>Minecraft Version: {{ collection.mc_version }}</p>
+    <p>Version id: {{ collection.version_id }}</p>
+
+    <h3>Mods:</h3>
+    <table>
+    {% for mod in collection.mods %}
+        <tr data-id="{{ mod.id }}">
+            <td><a href="/mod/{{ mod.id }}">{{ mod.name }}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

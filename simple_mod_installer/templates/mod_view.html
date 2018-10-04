@@ -1,0 +1,54 @@
+{% extends 'page.html' %}
+
+{% block title %}
+    Mod:
+    {% if mod.name %}
+    {{ mod.name }}
+    {% else %}
+    {{ mod.filename }}
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    {% if mod.name %}
+        <h1>{{ mod.name }} ({{ mod.filename }}) <sup style="font-size: 16px;"><a href="{{ mod.download_url }}">dl</a></sup></h1>
+    {% else %}
+    <h1>{{ mod.filename }}</h1>
+    {% endif %}
+
+    <p>{{ mod.description }}</p>
+    <p>Credits: {{ mod.credits }}</p>
+    <p>id: {{ mod.id }}</p>
+    <p>mcversion: {{ mod.mc_version }}</p>
+
+    {% if mod.dependencies %}
+
+    <h3>Dependencies:</h3>
+
+    <table style="width:30%;">
+        <tr>
+            <th>Modid</th>
+        </tr>
+    {% for m in mod.dependencies %}
+        <tr>
+            <td>{{ m.modid }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    {% else %}
+        <p>No Dependencies</p>
+    {% endif %}
+
+    <h3>Collections:</h3>
+
+    <table>
+        <tr><th>ID</th> <th>Name</th></tr>
+        {% for collection in mod.collections %}
+            <tr>
+                <td>{{ collection.id }}</td>
+                <td><a href="/collection/{{ collection.id }}">{{ collection.name }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

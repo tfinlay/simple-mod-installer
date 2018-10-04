@@ -1,0 +1,29 @@
+<h1>Create a collection</h1>
+<div [hidden]="submitted">
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <md-form-field>
+        <input mdInput id="name" placeholder="Name" name="name" type="text" [(ngModel)]="coll.name" required>
+    </md-form-field>
+    <br/>
+
+    <md-form-field>
+        <input mdInput id="mc_version" placeholder="Minecraft Version" name="mc_version" type="text" [(ngModel)]="coll.mc_version" required>
+    </md-form-field>
+    <br/>
+
+    <md-select placeholder="Minecraft Install" id="version_id" name="version_id" [(ngModel)]="coll.version_id" required>
+        <md-optgroup label="local">
+            <md-option *ngFor="let version of versions" [value]="version.id">{{ version.id }}</md-option>
+        </md-optgroup>
+
+        <md-optgroup label="online">
+
+        </md-optgroup>
+    </md-select>
+
+    <br/><br/>
+    <button md-raised-button color="accent" type="submit" [disabled]="!f.form.valid && !submitted">Submit</button>
+</form>
+</div>
+
+<app-spinner *ngIf="submitted"></app-spinner>

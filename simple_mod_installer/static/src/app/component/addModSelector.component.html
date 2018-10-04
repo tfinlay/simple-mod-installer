@@ -1,0 +1,54 @@
+<h2 md-dialog-title>Add a mod</h2>
+
+<button md-raised-button color="primary" type="button" style="width: 100%;" (click)="uploadMod()">
+    <md-icon>file_upload</md-icon>
+    Upload a mod
+</button>
+<br/>
+
+<div style="text-align: center; width: 100%;padding-top: 7px;padding-bottom: 5px;">or</div>
+
+<form #f="ngForm" novalidate (ngSubmit)="searchMods(f.value)">
+    <md-form-field style="width: 100%;">
+        <input mdInput placeholder="Search mods" name="term" #name="ngModel" [(ngModel)]="searchTerm" style="width: 100%" required>
+    </md-form-field>
+    <button type="submit" color="primary" md-mini-fab><md-icon>search</md-icon></button>
+</form>
+
+<div md-dialog-content>
+    <md-list class="bigList" style="max-height: 100%; overflow-y: scroll;">
+        <md-list-item *ngFor="let mod of mods">
+            <div class="content noSelect" md-ripple="">
+                <span class="body">
+                    <h4 class="title">{{ mod.getName() }} - {{ mod.selectedVersion }}</h4>
+                    <p class="subtitle">
+                        <span *ngIf="mod.getVersions().length == 1; else authorList">
+                            By: {{ mod.getAuthors() }}
+                        </span>
+                        <ng-template #authorList>
+                            <md-select placeholder="Minecraft Version" style="width: auto;" [(ngModel)]="mod.selectedVersion">
+                                <md-option *ngFor="let version of mod.getVersions()" [value]="version">
+                                    {{ version }}
+                                </md-option>
+                            </md-select>
+                        </ng-template>
+                    </p>
+                </span>
+                <span class="fillSpace"></span>
+                <button md-icon-button *ngIf="mod.is_installed; else dlBlock" (click)="linkMod(mod.local_id)">
+                    <md-icon>add</md-icon>
+                </button>
+                <ng-template #dlBlock>
+                    <button md-icon-button (click)="downloadLinkMod(mod);" *ngIf="!mod.installing; else installingSpinner">
+                        <md-icon>file_download</md-icon>
+                    </button>
+                    <ng-template #installingSpinner>
+                        <md-spinner></md-spinner>
+                    </ng-template>
+                </ng-template>
+            </div>
+        </md-list-item>
+
+        <p *ngIf="mods.length === 0 && searchTerm.length !== 0 && searchMade">No results found. Try a different search.</p>
+    </md-list>
+</div>

@@ -1,0 +1,24 @@
+{% extends 'page.html' %}
+{% block title %}Collections{% endblock %}
+
+{% block main %}
+    <h1>Your Mods:</h1>
+
+    <table style="width: 90%;">
+        <tr>
+            <th>Name</th>
+            <th>Version</th>
+            <th>Minecraft Version</th>
+            <th>Update URL</th>
+        </tr>
+    {% for mod in mods %}
+        <tr data-id="{{ mod.id }}">
+            <td><a href="/mod/{{ mod.id }}">{{ mod.name }} ({{ mod.filename }})</a></td>
+            <td>{{ mod.modid }}</td>
+            <td>{{ mod.version }}</td>
+            <td>{{ mod.mc_version }}</td>
+            <td>{{ mod.update_json_url }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

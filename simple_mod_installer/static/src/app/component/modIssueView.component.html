@@ -1,0 +1,33 @@
+<h2>Issues for {{ data.mod.getName() }}</h2>
+
+<div *ngFor="let issue of data.mod.issues">
+    <h3>{{ issue.type.name }} issue</h3>
+    <p>{{ issue.type.description }}</p>
+
+    <md-list class="bigList wide">
+        <h3>Possible resolutions:</h3>
+
+        <md-list-item *ngIf="issue.type.issueId == 0" style="margin-left: 25px;width: calc(100% - 25px);">
+            <!-- McVersion issue -->
+            <div class="content">
+                <span class="body">
+                    <h4 class="title">Manually install a newer version of this mod</h4>
+                    <p class="subtitle">Search for the mod version which supports Minecraft version {{ collection.mc_version }}</p>
+                </span>
+            </div>
+        </md-list-item>
+
+        <ng-container *ngIf="issue.type.issueId == 1">
+            <!-- Dependency issue -->
+
+            <md-list-item *ngFor="let cause of issue.causing" style="margin-left: 25px;width: calc(100% - 25px);">
+                <div class="content">
+                    <span class="body">
+                        <h4 class="title">Install missing mod: {{ cause }}</h4>
+                    </span>
+                </div>
+            </md-list-item>
+
+        </ng-container>
+    </md-list>
+</div>

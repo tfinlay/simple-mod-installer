@@ -1,0 +1,177 @@
+// Main styles for Simple Mod Installer
+
+$pagePadding: 25px;
+
+// Utilities
+.navSpacer {
+  width: 20px;
+}
+
+.fillSpace {
+  // Fills all of the row
+  flex: 1 1 auto;
+}
+
+
+.select {
+  -webkit-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  user-select: initial;
+}
+
+.noSelect {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+// Page setup
+body {
+  font-family: 'Roboto', sans-serif;
+
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+main {
+  padding: 0 $pagePadding;
+}
+
+footer {
+  display: none;
+}
+
+.leftCol {
+  vertical-align: top;
+  display: inline-block;
+  width: calc(60% - 25px);
+}
+
+.rightCol {
+  vertical-align: top;
+  display: inline-block;
+  width: 40%;
+}
+
+// largeList styles
+.titleWarning > md-icon {
+  font-size: 16px;
+}
+
+app-listcard {
+  cursor: pointer;
+}
+
+// bigList styles
+
+.title {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.subtitle {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.bigList {
+
+  width: 500px;
+  background-color: #e0e0e0;
+
+  md-list-item {
+    display: block;
+
+    width: 100%;
+    min-height: 60px;
+
+    cursor: pointer;
+
+    .content {
+      height: 70px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+
+      padding: 0 16px;
+      position: relative;
+    }
+
+    .body {
+      min-width: 150px;
+      /*p {
+        display: inline-block;
+      }*/
+
+      h4, p {
+        margin: 0;
+        max-width: 350px;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .mat-spinner {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+    }
+
+    .mat-select-placeholder {
+        width: auto !important;
+    }
+  }
+
+  &.wide {
+      .body {
+          h4, p {
+              max-width: initial;
+          }
+      }
+  }
+}
+
+app-listcard {
+    md-card {
+        vertical-align: middle;
+        md-card-title-group {
+            .contextBtnContainer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
+
+// Misc
+
+.windowFab {
+  position: fixed !important;
+  bottom: $pagePadding;
+  right: $pagePadding;
+}
+
+
+// Add mod selector
+
+app-add-mod-selector {
+    form {
+        // put the search bar and the upload fab on the same line
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        md-form-field {
+            flex: 1;
+        }
+        button {
+            margin-left: 15px;
+            display: inline-block;
+        }
+    }
+}

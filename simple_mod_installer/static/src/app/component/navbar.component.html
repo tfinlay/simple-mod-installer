@@ -1,0 +1,33 @@
+<!--<nav md-tab-nav-bar aria-label="weather navigation links" color="primary">
+    <a md-tab-link
+        *ngFor="let routeLink of routeLinks; let i = index"
+         [routerLink]="routeLink.link"
+
+         (click)="activeLinkIndex = i">
+         {{routeLink.label}}
+     </a>
+</nav>
+-->
+
+<md-toolbar color="primary">
+
+    <span>Simple Mod Installer</span>
+    <span class="navSpacer"></span>
+    <button md-button routerLink="">Collections</button>
+    <button md-button routerLink="mod">Mods</button>
+    <span class="fillSpace"></span>
+    <button md-icon-button md-tooltip="We'd love to hear your feedback!" routerLink="feedback"><md-icon>feedback</md-icon></button>
+    <!--<button md-icon-button [mdMenuTriggerFor]="appMenu"><md-icon>more_vert</md-icon></button>-->
+
+</md-toolbar>
+
+<md-menu #appMenu="mdMenu">
+  <button md-menu-item routerLink="settings">
+      <md-icon>settings</md-icon>
+      <span>Settings</span>
+  </button>
+  <button md-menu-item routerLink="help">
+      <md-icon>help</md-icon>
+      <span>Help</span>
+  </button>
+</md-menu>

@@ -1,0 +1,24 @@
+{% extends 'page.html' %}
+{% block title %}Add a Collection{% endblock %}
+
+{% block head %}
+<script>
+document.onload = load_mcversions();
+
+function load_mcversions() {
+
+}
+</script>
+{% endblock %}
+
+{% block main %}
+    <h1>Add a collection</h1>
+
+    <form>
+        <input name="" type="text" placeholder="Collection Name">
+        <input name="" type="text" placeholder="Minecraft Version">
+        <select id="mcversions" name="" title="Select a Minecraft Version">
+
+        </select>
+    </form>
+{% endblock %}

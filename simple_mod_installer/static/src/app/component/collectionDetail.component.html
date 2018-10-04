@@ -1,0 +1,10 @@
+<h1 style="margin-bottom: 0;">{{ name }}</h1>
+
+<div class="leftCol">
+    <h3 style="margin-top: 0;">Minecraft Version: {{ mc_version }}</h3>
+    <p>using version id '{{ version_id }}'</p>
+    <button md-raised-button (click)="exploreCollFiles()">Explore files</button>
+</div>
+<div class="rightCol">
+    <app-collection-mod-list [collId]="id"></app-collection-mod-list>
+</div>

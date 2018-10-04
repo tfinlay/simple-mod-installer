@@ -1,0 +1,3 @@
+<h2>{{ data.errInfo.title }}</h2>
+<p>{{ data.errInfo.body }}</p>
+<button md-button *ngFor="let action of data.actions; let i = index" (click)="closeWithAction(i)">{{ action }}</button>
